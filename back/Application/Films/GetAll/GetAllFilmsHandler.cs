@@ -1,13 +1,12 @@
 using MediatR;
-using Domain.Repositories;
+using Domain.Repositories.FilmRead;
 
 namespace Application.Films.GetAll;
 
-public record GetAllFilmsQuery() : IRequest<IReadOnlyList<FilmDto>>;
 
-public class GetAllFilmsHandler(IFilmRepository filmRepository) : IRequestHandler<GetAllFilmsQuery, IReadOnlyList<FilmDto>>
+public class GetAllFilmsHandler(IFilmReadRepository filmRepository) : IRequestHandler<GetAllFilmsQuery, IReadOnlyList<FilmDto>>
 {
-    private readonly IFilmRepository _filmRepository = filmRepository;
+    private readonly IFilmReadRepository _filmRepository = filmRepository;
 
     public async Task<IReadOnlyList<FilmDto>> Handle(GetAllFilmsQuery _, CancellationToken cancellationToken)
     {

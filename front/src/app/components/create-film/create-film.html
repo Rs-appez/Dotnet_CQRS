@@ -1,0 +1,16 @@
+<h1>Ajouter un nouveau film</h1>
+<form [formGroup]="filmForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="frTitle">Titre FR:</label>
+    <input id="frTitle" formControlName="frTitle" />
+  </div>
+  <div>
+    <label for="qcTitle">Titre QC:</label>
+    <input id="qcTitle" formControlName="qcTitle" />
+  </div>
+  <div>
+    <label for="releaseYear">Année de sortie:</label>
+    <input id="releaseYear" formControlName="releaseYear" type="number" />
+  </div>
+  <button type="submit" [disabled]="filmForm.invalid">Ajouter le film</button>
+</form>
