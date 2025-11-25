@@ -1,0 +1,17 @@
+name: Test Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      -name : First check
+        run : ls -la
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Re check
+        run : ls -la
