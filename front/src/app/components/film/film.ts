@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FilmService } from '../../services/film-service';
-import { CreateFilm } from "../create-film/create-film";
+import { CreateFilm } from '../create-film/create-film';
 
 @Component({
   selector: 'app-film',
@@ -8,7 +8,7 @@ import { CreateFilm } from "../create-film/create-film";
   templateUrl: './film.html',
   styleUrl: './film.css',
 })
-export class Film {
+export class Film implements OnInit {
   private filmService = inject(FilmService);
 
   films$ = this.filmService.films$;
