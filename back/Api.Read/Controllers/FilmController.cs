@@ -15,6 +15,7 @@ public class FilmController(IMediator mediator) : ControllerBase
     public IEnumerable<FilmDto> Get(CancellationToken ct)
     {
         IEnumerable<FilmDto> films = _mediator.Send(new GetAllFilmsQuery(), ct).Result;
+        Console.WriteLine("films read at " + DateTime.Now); 
         return films;
     }
 
