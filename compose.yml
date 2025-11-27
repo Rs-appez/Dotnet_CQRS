@@ -21,9 +21,10 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: "bob"
       MONGO_INITDB_ROOT_PASSWORD: "${MONGO_PASS}"
+      MONGO_INITDB_DATABASE: "filmDB"
     volumes:
       - "mongo_data:/data/db"
-      # - "./mongo/init.js:/docker-entrypoint-initdb.d/init.js:ro"
+      - "./db/init.js:/docker-entrypoint-initdb.d/init.js:ro"
     networks:
       - "backend"
 
