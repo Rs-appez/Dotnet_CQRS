@@ -3,6 +3,7 @@ using Infrastructure.Read.Repositories;
 using Domain.Repositories.FilmRead;
 using Application.Films.GetAll;
 using Application.Films;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,9 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 string connectionString = builder.Configuration.GetConnectionString("default") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddScoped<IFilmReadRepository>(_ => new FilmReadRepository(connectionString));
+builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(connectionString));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IMongoClient>().GetDatabase("filmDB"));
+builder.Services.AddScoped<IFilmReadRepository, FilmReadRepository>();
 builder.Services.AddTransient<IRequestHandler<GetAllFilmsQuery, IReadOnlyList<FilmDto>>, GetAllFilmsHandler>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());

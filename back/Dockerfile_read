@@ -10,6 +10,7 @@ RUN dotnet publish Api.Read -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
+RUN apt update && apt install -y curl && apt clean
 WORKDIR /App
 COPY --from=build /App/out .
 ENTRYPOINT ["dotnet", "Api.Read.dll"]

@@ -17,10 +17,10 @@ public class FilmWriteRepository(string connectionString) : IFilmWriteRepository
         command.Parameters.AddWithValue("qc_name", film.Qc_Title);
         command.Parameters.AddWithValue("year", film.Release_Year);
         var result = await command.ExecuteScalarAsync(cancellationToken);
-        film.Id = Convert.ToInt32(result);
+        film.Film_Id = Convert.ToInt32(result);
 
         var commandCheck = new NpgsqlCommand("SELECT id, fr_name, qc_name, year from film WHERE id = @id", connection);
-        commandCheck.Parameters.AddWithValue("id", film.Id);
+        commandCheck.Parameters.AddWithValue("id", film.Film_Id);
         await using var reader = await commandCheck.ExecuteReaderAsync(cancellationToken);
         if (await reader.ReadAsync(cancellationToken))
 

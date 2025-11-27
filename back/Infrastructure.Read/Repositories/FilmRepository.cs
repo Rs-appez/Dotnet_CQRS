@@ -1,33 +1,18 @@
-using Npgsql;
-using Domain.Entities;
+using MongoDB.Driver;
 using Domain.Repositories.FilmRead;
+using Domain.Entities;
+using Infrastructure.Read.Models;
 
 namespace Infrastructure.Read.Repositories;
 
-public class FilmReadRepository(string connectionString) : IFilmReadRepository
+public class FilmReadRepository(IMongoDatabase database) : IFilmReadRepository
 {
-    private readonly string _connectionString = connectionString;
-
+    private IMongoCollection<ReadFilm> Films => database.GetCollection<ReadFilm>("film");
 
     public async Task<IEnumerable<Film>> GetAllFilms(CancellationToken cancellationToken = default)
     {
-        var films = new List<Film>();
-
-        await using var connection = new NpgsqlConnection(_connectionString);
-        await connection.OpenAsync(cancellationToken);
-        var command = new NpgsqlCommand("SELECT id, fr_name, qc_name, year from film", connection);
-        await using var reader = await command.ExecuteReaderAsync(cancellationToken);
-        while (await reader.ReadAsync(cancellationToken))
-        {
-            films.Add(new Film
-            (
-                reader.GetInt32(0),
-                reader.GetString(1),
-                reader.GetString(2),
-                reader.GetInt32(3)
-            ));
-
-        }
-        return films;
+        return await Films
+            .Find(FilterDefinition<ReadFilm>.Empty)
+            .ToListAsync(cancellationToken);
     }
 }

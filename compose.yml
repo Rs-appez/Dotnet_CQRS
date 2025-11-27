@@ -14,7 +14,22 @@ services:
     networks:
       - "backend"
 
+  mongo:
+    image: "mongo:noble"
+    restart: "always"
+    shm_size: "128mb"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "bob"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_PASS}"
+    volumes:
+      - "mongo_data:/data/db"
+      # - "./mongo/init.js:/docker-entrypoint-initdb.d/init.js:ro"
+    networks:
+      - "backend"
+
   back_write:
+    depends_on:
+      - "db"
     build:
       context: "./back"
       dockerfile: "Dockerfile_write"
@@ -25,6 +40,8 @@ services:
       - "middle"
 
   back_read:
+    depends_on:
+      - "mongo"
     build:
       context: "./back"
       dockerfile: "Dockerfile_read"
@@ -55,3 +72,4 @@ networks:
 
 volumes:
   db_data:
+  mongo_data:
