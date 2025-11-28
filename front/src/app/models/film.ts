@@ -1,6 +1,6 @@
 export interface Film {
-  id: number;
-  frTitle: string;
-  qcTitle: string;
-  year: number;
+  film_Id: number;
+  fr_Title: string;
+  qc_Title: string;
+  release_Year: number;
 }

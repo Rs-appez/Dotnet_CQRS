@@ -1,6 +1,6 @@
 using Application.Films.Create;
 using Domain.Entities;
-using Domain.Repositories.FilmWrite;
+using Application.Common.Interfaces;
 using Infrastructure.Write.Repositories;
 using MediatR;
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +15,7 @@ string connectionString = builder.Configuration.GetConnectionString("default") ?
 builder.Services.AddScoped<IFilmWriteRepository>(_ => new FilmWriteRepository (connectionString));
 
 
-builder.Services.AddTransient<IRequestHandler<CreateFilmCommand, Film>, CreateFilmHandler>();
+builder.Services.AddTransient<IRequestHandler<CreateFilmCommand, int>, CreateFilmHandler>();
 
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());

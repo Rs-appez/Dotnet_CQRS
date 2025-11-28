@@ -14,10 +14,10 @@ public class FilmController(IMediator mediator) : ControllerBase
     public record CreateFilmRequest(string FrTitle, string QcTitle, int ReleaseYear);
 
     [HttpPost(Name = "CreateFilm")]
-    public ActionResult<FilmDto> Create([FromBody] CreateFilmRequest request, CancellationToken ct)
+    public ActionResult<int> Create([FromBody] CreateFilmRequest request, CancellationToken ct)
     {
         CreateFilmCommand command = new(request.FrTitle, request.QcTitle, request.ReleaseYear);
-        FilmDto film = _mediator.Send(command, ct).Result.ToDto();
-        return film;
+        int id = _mediator.Send(command, ct).Result;
+        return id;
     }
 }

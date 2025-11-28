@@ -1,6 +1,6 @@
 using Npgsql;
 using Domain.Entities;
-using Domain.Repositories.FilmWrite;
+using Application.Common.Interfaces;
 
 namespace Infrastructure.Write.Repositories;
 
@@ -8,7 +8,7 @@ public class FilmWriteRepository(string connectionString) : IFilmWriteRepository
 {
     private readonly string _connectionString = connectionString;
 
-    public async Task<Film> AddFilm(Film film, CancellationToken cancellationToken = default)
+    public async Task<int> AddFilm(Film film, CancellationToken cancellationToken = default)
     {
         await using var connection = new NpgsqlConnection(_connectionString);
         await connection.OpenAsync(cancellationToken);
@@ -19,20 +19,7 @@ public class FilmWriteRepository(string connectionString) : IFilmWriteRepository
         var result = await command.ExecuteScalarAsync(cancellationToken);
         film.Film_Id = Convert.ToInt32(result);
 
-        var commandCheck = new NpgsqlCommand("SELECT id, fr_name, qc_name, year from film WHERE id = @id", connection);
-        commandCheck.Parameters.AddWithValue("id", film.Film_Id);
-        await using var reader = await commandCheck.ExecuteReaderAsync(cancellationToken);
-        if (await reader.ReadAsync(cancellationToken))
-
-            film = new Film
-            (
-                reader.GetInt32(0),
-                reader.GetString(1),
-                reader.GetString(2),
-                reader.GetInt32(3)
-            );
-
-        return film;
+        return film.Film_Id;
     }
 
 }

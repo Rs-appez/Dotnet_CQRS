@@ -1,13 +1,13 @@
-using Domain.Repositories.FilmWrite;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
 namespace Application.Films.Create;
 
-public class CreateFilmHandler(IFilmWriteRepository filmRepository) : IRequestHandler<CreateFilmCommand, Film>
+public class CreateFilmHandler(IFilmWriteRepository filmRepository) : IRequestHandler<CreateFilmCommand, int>
 {
     private readonly IFilmWriteRepository _filmRepository = filmRepository;
 
-    public async Task<Film> Handle(CreateFilmCommand command, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateFilmCommand command, CancellationToken cancellationToken)
     {
         var film = new Film
         (
@@ -17,6 +17,6 @@ public class CreateFilmHandler(IFilmWriteRepository filmRepository) : IRequestHa
         );
 
         await _filmRepository.AddFilm(film, cancellationToken);
-        return film;
+        return film.Film_Id;
     }
 }

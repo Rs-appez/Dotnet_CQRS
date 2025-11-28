@@ -1,9 +1,9 @@
 using MediatR;
 using Infrastructure.Read.Repositories;
-using Domain.Repositories.FilmRead;
 using Application.Films.GetAll;
 using Application.Films;
 using MongoDB.Driver;
+using Application.Common.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

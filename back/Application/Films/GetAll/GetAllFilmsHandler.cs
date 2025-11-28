@@ -1,5 +1,5 @@
 using MediatR;
-using Domain.Repositories.FilmRead;
+using Application.Common.Interfaces;
 
 namespace Application.Films.GetAll;
 
@@ -11,6 +11,6 @@ public class GetAllFilmsHandler(IFilmReadRepository filmRepository) : IRequestHa
     public async Task<IReadOnlyList<FilmDto>> Handle(GetAllFilmsQuery _, CancellationToken cancellationToken)
     {
         var films = await _filmRepository.GetAllFilms(cancellationToken);
-        return [.. films.Select(film => film.ToDto())];
+        return [.. films];
     }
 }

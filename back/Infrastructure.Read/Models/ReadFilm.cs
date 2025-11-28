@@ -1,12 +1,17 @@
 using MongoDB.Bson;
-using Domain.Entities;
+using Application.Films;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Infrastructure.Read.Models;
 
-public class ReadFilm(ObjectId id, int film_id, string fr_title, string qc_title, int release_year) 
-    : Film(film_id, fr_title, qc_title, release_year)
+public class ReadFilm(ObjectId id, int Film_Id, string Fr_Title, string Qc_Title, int Release_Year) 
+    : FilmDto(Film_Id, Fr_Title, Qc_Title, Release_Year)
 {
     [BsonId]
     public ObjectId Id { get; set; } = id;
+
+    public override string ToString()
+    {
+        return $"ReadFilm {{ Id = {Id}, Film_Id = {Film_Id}, Fr_Title = {Fr_Title}, Qc_Title = {Qc_Title}, Release_Year = {Release_Year} }}";
+    }
 }

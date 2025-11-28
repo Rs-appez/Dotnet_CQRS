@@ -1,6 +1,6 @@
 using MongoDB.Driver;
-using Domain.Repositories.FilmRead;
-using Domain.Entities;
+using Application.Common.Interfaces;
+using Application.Films;
 using Infrastructure.Read.Models;
 
 namespace Infrastructure.Read.Repositories;
@@ -9,10 +9,9 @@ public class FilmReadRepository(IMongoDatabase database) : IFilmReadRepository
 {
     private IMongoCollection<ReadFilm> Films => database.GetCollection<ReadFilm>("film");
 
-    public async Task<IEnumerable<Film>> GetAllFilms(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<FilmDto>> GetAllFilms(CancellationToken cancellationToken = default)
     {
-        return await Films
-            .Find(FilterDefinition<ReadFilm>.Empty)
-            .ToListAsync(cancellationToken);
+        var films = await Films.Find(_ => true).ToListAsync(cancellationToken);
+        return films;
     }
 }

@@ -1,10 +1,10 @@
 <app-create-film></app-create-film>
-@for (film of films$(); track film.id) {
+@for (film of films$(); track film.film_Id) {
   <div class="film-card">
-    <h2>{{ film.id }}</h2>
-    <p>Title fr: {{ film.frTitle }}</p>
-    <p>Title qc: {{ film.qcTitle }}</p>
-    <p>Release Year: {{ film.year }}</p>
+    <h2>{{ film.film_Id }}</h2>
+    <p>Title fr: {{ film.fr_Title }}</p>
+    <p>Title qc: {{ film.qc_Title }}</p>
+    <p>Release Year: {{ film.release_Year }}</p>
   </div>
 } @empty {
   <p>No films available at the moment.</p>
