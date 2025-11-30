@@ -680,7 +680,3 @@ If you want, I can next:
 
 - Add an outbox pattern for reliable RabbitMQ publishing.
 - Show full domain-event dispatching instead of publishing in the handler.
-
-# User (18a1d036-f263-4c8d-a6f5-020160c3cba7) ───
-
-
