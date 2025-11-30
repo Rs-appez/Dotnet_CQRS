@@ -1,9 +1,8 @@
 using MongoDB.Driver;
 using Application.Common.Interfaces;
 using Application.Films;
-using Infrastructure.Read.Models;
 
-namespace Infrastructure.Read.Repositories;
+namespace Infrastructure.ReadModel;
 
 public class FilmReadRepository(IMongoDatabase database) : IFilmReadRepository
 {

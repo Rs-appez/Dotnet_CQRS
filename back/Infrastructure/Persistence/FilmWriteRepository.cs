@@ -2,7 +2,7 @@ using Npgsql;
 using Domain.Entities;
 using Application.Common.Interfaces;
 
-namespace Infrastructure.Write.Repositories;
+namespace Infrastructure.Persistence;
 
 public class FilmWriteRepository(string connectionString) : IFilmWriteRepository
 {

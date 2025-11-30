@@ -2,7 +2,7 @@ using MongoDB.Bson;
 using Application.Films;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Infrastructure.Read.Models;
+namespace Infrastructure.ReadModel;
 
 public class ReadFilm(ObjectId id, int Film_Id, string Fr_Title, string Qc_Title, int Release_Year) 
     : FilmDto(Film_Id, Fr_Title, Qc_Title, Release_Year)

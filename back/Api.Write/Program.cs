@@ -1,7 +1,6 @@
 using Application.Films.Create;
-using Domain.Entities;
 using Application.Common.Interfaces;
-using Infrastructure.Write.Repositories;
+using Infrastructure.Persistence;
 using MediatR;
 var builder = WebApplication.CreateBuilder(args);
 

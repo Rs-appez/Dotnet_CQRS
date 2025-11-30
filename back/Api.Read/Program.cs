@@ -1,5 +1,5 @@
 using MediatR;
-using Infrastructure.Read.Repositories;
+using Infrastructure.ReadModel;
 using Application.Films.GetAll;
 using Application.Films;
 using MongoDB.Driver;
